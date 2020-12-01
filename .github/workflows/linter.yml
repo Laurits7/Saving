@@ -21,7 +21,7 @@ jobs:
         run: |
             docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
             -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
-             scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src ; 'eval `scramv1 runtime -sh`' ; \
+             scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src ; "eval `scramv1 runtime -sh`" ; \
              echo $CMSSW_BASE/src/machineLearning/machineLearning; git clone ${{ env.repo_url}} $CMSSW_BASE/src/machineLearning/machineLearning'
         # Can't use the alias cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
 
