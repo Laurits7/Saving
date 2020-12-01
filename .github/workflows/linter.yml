@@ -21,6 +21,5 @@ jobs:
           -e CVMFS_MOUNTS="cms.cern.ch" \
           --device /dev/fuse \
           -it clelange/cc7-cmssw-cvmfs:latest \
-          -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
           /bin/bash
 
