@@ -15,8 +15,8 @@ jobs:
           docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -i
         run: |
             docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
-            -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Sourced!; \
-             ls'
+            -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
+             echo ${{ env.cmssw_ver }}; command -v cmsrel'
           # cmsrel ${{ env.cmssw_ver }}; ls ; cd ${{ env.cmssw_ver }} '
 
 
