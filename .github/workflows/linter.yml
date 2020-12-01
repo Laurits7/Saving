@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run a CVMFS Docker image & set environment
-      runs:
+      run:
         using: 'docker'
         image: 'docker://clelange/cc7-cmssw-cvmfs:latest'
       # uses: docker:/clelange/cc7-cmssw-cvmfs:latest
