@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test
-      - uses: Laurits7/Test@master
+        uses: Laurits7/Test@master
 
 
     # steps:
