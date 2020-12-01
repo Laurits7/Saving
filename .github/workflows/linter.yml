@@ -11,7 +11,7 @@ jobs:
     container: clelange/cc7-cmssw-cvmfs:latest
     steps:
       - name: Test
-        run: pwd
+        run: source /cvmfs/cms.cern.ch/cmsset_default.sh
 
 
     # steps:
