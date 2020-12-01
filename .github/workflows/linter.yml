@@ -9,8 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        uses: Laurits7/Test@v1
+      run: |
+          docker run \
+          --cap-add SYS_ADMIN \
+          --cap-add=MKNOD \
+          --security-opt apparmor=unconfined \
+          -e CVMFS_MOUNTS="cms.cern.ch" \
+          --device /dev/fuse \
+          -i clelange/cc7-cmssw-cvmfs:latest \
+          /bin/bash
+
+
 
 
     # steps:
@@ -24,14 +33,4 @@ jobs:
     #   - name: Test
     #     run: source /cvmfs/cms.cern.ch/cmsset_default.sh
 
-
-      # run: |
-      #     docker run \
-      #     --cap-add SYS_ADMIN \
-      #     --cap-add=MKNOD \
-      #     --security-opt apparmor=unconfined \
-      #     -e CVMFS_MOUNTS="cms.cern.ch" \
-      #     --device /dev/fuse \
-      #     -it clelange/cc7-cmssw-cvmfs:latest \
-      #     /bin/bash
 
