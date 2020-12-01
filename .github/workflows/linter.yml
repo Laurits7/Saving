@@ -16,6 +16,5 @@ jobs:
       run: |
           docker run --rm -t -P --cap-add SYS_ADMIN --cap-add=MKNOD \
           --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" \
-          --device -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
           /dev/fuse clelange/cc7-cmssw-cvmfs:latest /bin/bash
 
