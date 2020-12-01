@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      run: |
+      - run: |
           docker run \
           --cap-add SYS_ADMIN \
           --cap-add=MKNOD \
