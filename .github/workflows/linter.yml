@@ -20,6 +20,6 @@ jobs:
           --security-opt apparmor=unconfined \
           -e CVMFS_MOUNTS="cms.cern.ch" \
           --device /dev/fuse \
-          -it clelange/cc7-cmssw-cvmfs:latest \
+          -t clelange/cc7-cmssw-cvmfs:latest \
           /bin/bash
 
