@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      run: echo ${{ github.repository }}
-      run: echo ${{ github.token }}
+      - run: echo ${{ github.repository }}
+      - run: echo ${{ github.token }}
       # - name: Run docker Image
       #   env:
       #     build_image: clelange/cc7-cmssw-cvmfs:latest
