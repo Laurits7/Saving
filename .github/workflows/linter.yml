@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run a CVMFS Docker image & set environment
-    - uses: Laurits7/CVMFS_docker@v1
+      uses: Laurits7/CVMFS_docker@v1
       # run:
       #   using: 'docker'
       #   image: 'docker://clelange/cc7-cmssw-cvmfs:latest'
