@@ -12,8 +12,10 @@ jobs:
       - name: Run docker Image
         env:
           build_image: clelange/cc7-cmssw-cvmfs:latest
-          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -i 
-        run: docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash
+          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -i
+        run: |
+            docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash -c 'pwd'
+            pwd
       - name:
         run: docker images
 
