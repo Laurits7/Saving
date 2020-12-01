@@ -9,12 +9,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Run a CVMFS Docker image & set environment
-      uses: Laurits7/CVMFS_docker
-      # run:
-      #   using: 'docker'
-      #   image: 'docker://clelange/cc7-cmssw-cvmfs:latest'
-      # uses: docker:/clelange/cc7-cmssw-cvmfs:latest
-      # with:
-      #   args: " -t - P --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -v /sys/fs/cgroup:/sys/fs/cgroup:ro /bin/bash"
+    - uses: actions/checkout@master
+    - name: Pull the Docker Image
+      run: docker pull bilelmoussaoui/flatpak-github-actions:latest
+    - name: Run Docker Image
+      run: |
+          docker run --rm -t - P --cap-add SYS_ADMIN --cap-add=MKNOD \
+          --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" \
+          --device /dev/fuse -it clelange/cc7-cmssw-cvmfs:latest \
+          -v /sys/fs/cgroup:/sys/fs/cgroup:ro /bin/bash"
 
