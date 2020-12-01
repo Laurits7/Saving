@@ -14,15 +14,16 @@ jobs:
       - run: echo ${{ github.event_name}}
       - run: echo ${{ github.sha }}
       - run: echo ${{ env.repo_url}}/${{ github.event_name}}/${{ github.sha }}
-      # - name: Run docker Image
-      #   env:
-      #     build_image: clelange/cc7-cmssw-cvmfs:latest
-      #     docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -i
-      #   run: |
-      #       docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
-      #       -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
-      #        scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src ;  '
-      #   # Can't use the alias cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
+      - name: Run docker Image
+        env:
+          build_image: clelange/cc7-cmssw-cvmfs:latest
+          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -i
+        run: |
+            docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
+            -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
+             scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src ; \
+             echo ${{ env.repo_url}}/commit/${{ github.sha }} '
+        # Can't use the alias cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
 
 
       #   run: |
