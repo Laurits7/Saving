@@ -9,13 +9,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Pull the Docker Image
       run: docker pull clelange/cc7-cmssw-cvmfs:latest
     - name: Run Docker Image
       run: |
-          docker run -t - P --cap-add SYS_ADMIN --cap-add=MKNOD \
-          --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" \
+          docker run --rm -t - P --cap-add sys_admin --cap-add=mknod \
+          --security-opt apparmor=unconfined -e cvmfs_mounts="cms.cern.ch" \
           --device /dev/fuse -it clelange/cc7-cmssw-cvmfs:latest \
           -v /sys/fs/cgroup:/sys/fs/cgroup:ro /bin/bash
 
