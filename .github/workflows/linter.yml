@@ -9,7 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Run docker Image
+        run: |
           docker run \
           --cap-add SYS_ADMIN \
           --cap-add=MKNOD \
@@ -18,6 +19,8 @@ jobs:
           --device /dev/fuse \
           -i clelange/cc7-cmssw-cvmfs:latest \
           /bin/bash
+      - name: Take a look around
+        run: pwd && ls
 
 
 
