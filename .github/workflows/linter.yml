@@ -4,15 +4,16 @@ on: [push]
 
 env:
   cmssw_ver: CMSSW_10_2_10
-  repo_url: 
+  repo_url: https://github.com/Laurits7/Saving
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.repository }}
-      - run: echo THIS
-      - run: echo ${{ github.action }}
+      - run: echo ${{ github.event_name}}
+      - run: echo ${{ github.sha }}
+      - run: echo ${{ env.repo_url}}/${{ github.event_name}}/{{ github.sha }}
       # - name: Run docker Image
       #   env:
       #     build_image: clelange/cc7-cmssw-cvmfs:latest
