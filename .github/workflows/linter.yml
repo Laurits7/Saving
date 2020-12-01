@@ -9,11 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - name: Run a CVMFS Docker image & set environment
-      run:
-        using: 'docker'
-        image: 'docker://clelange/cc7-cmssw-cvmfs:latest'
+    - uses: Laurits7/CVMFS_docker@v1
+      # run:
+      #   using: 'docker'
+      #   image: 'docker://clelange/cc7-cmssw-cvmfs:latest'
       # uses: docker:/clelange/cc7-cmssw-cvmfs:latest
       # with:
       #   args: " -t - P --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" --device /dev/fuse -v /sys/fs/cgroup:/sys/fs/cgroup:ro /bin/bash"
