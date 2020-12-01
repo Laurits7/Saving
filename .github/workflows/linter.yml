@@ -11,11 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Pull the Docker Image
-      run: docker pull bilelmoussaoui/flatpak-github-actions:latest
+      run: docker pull clelange/cc7-cmssw-cvmfs:latest
     - name: Run Docker Image
       run: |
           docker run --rm -t - P --cap-add SYS_ADMIN --cap-add=MKNOD \
           --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" \
           --device /dev/fuse -it clelange/cc7-cmssw-cvmfs:latest \
-          -v /sys/fs/cgroup:/sys/fs/cgroup:ro /bin/bash"
+          -v /sys/fs/cgroup:/sys/fs/cgroup:ro /bin/bash
 
