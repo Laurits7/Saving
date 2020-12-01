@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.repository }}
-      - run: THIS
+      - run: echo THIS
       - run: echo ${{ github.action }}
       # - name: Run docker Image
       #   env:
