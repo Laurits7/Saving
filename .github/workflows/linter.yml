@@ -16,7 +16,8 @@ jobs:
         run: |
             docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
             -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
-             echo ${{ env.cmssw_ver }}; command -v cmsrel'
+            pwd; ls'
+           # echo ${{ env.cmssw_ver }}; command -v cmsrel'
           # cmsrel ${{ env.cmssw_ver }}; ls ; cd ${{ env.cmssw_ver }} '
 
 
