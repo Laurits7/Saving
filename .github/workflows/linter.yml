@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: clelange/cc7-cmssw-cvmfs:latest
+    steps:
+      - name: Test
+        run: pwd
 
 
     # steps:
