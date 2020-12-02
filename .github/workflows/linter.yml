@@ -4,7 +4,7 @@ on: [push]
 
 env:
   cmssw_ver: CMSSW_10_2_10
-  repo_url: https://github.com/HEP-KBFI/ml-training
+  repo_url: https://github.com/HEP-KBFI/ml-training.git
   location: /home/runner/work/Saving/Saving
 
 jobs:
@@ -21,9 +21,9 @@ jobs:
              scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src; "eval `scramv1 runtime -sh`" ;\
              git clone ${{ env.repo_url}} machineLearning/machineLearning; scram b -j2;\
              cd machineLearning/machineLearning; sudo yum -y install pylint; \
-             pylint --exit-zero python/* &> /home/cmsusr/python_lint.txt ;\
-             pylint --exit-zero scripts/* &> /home/cmsusr/scripts_lint.txt'
-      - name: Save python/ folder pylint artefacts
+             pylint --exit-zero python/* &> /home/cmsusr/results/python_lint.txt ;\
+             pylint --exit-zero scripts/* &> /home/cmsusr/results/scripts_lint.txt'
+      - name: Save python/ folder pylint artifacts
         uses: actions/upload-artifact@v2
         with:
           name: python-pylint
