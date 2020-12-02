@@ -5,16 +5,17 @@ on: [push]
 env:
   cmssw_ver: CMSSW_10_2_10
   repo_url: https://github.com/HEP-KBFI/ml-training.git
-  location: /home/runner/work/Saving/Saving
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: touch
+        run: touch foobar.txt
       - name: Run docker Image
         env:
           build_image: clelange/cc7-cmssw-cvmfs:latest
-          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" -v ${{ env.location }}:/home/cmsusr/results --device /dev/fuse -i
+          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" -v $PWD:/home/cmsusr/results --device /dev/fuse -i
         run: |
             sudo docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
             -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
@@ -28,6 +29,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: python-pylint
-          path: ${{ env.location }}/python_lint.txt
+          path: $PWD/python_lint.txt
 
         # Can't use the aliases like cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
