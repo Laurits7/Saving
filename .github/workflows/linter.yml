@@ -7,28 +7,34 @@ env:
   repo_url: https://github.com/HEP-KBFI/ml-training.git
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: touch
-        run: touch foobar.txt
-      - name: Run docker Image
-        env:
-          build_image: clelange/cc7-cmssw-cvmfs:latest
-          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" -v $PWD:/home/cmsusr/results --device /dev/fuse -i
-        run: |
-            sudo docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
-            -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
-             scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src; "eval `scramv1 runtime -sh`" ;\
-             git clone ${{ env.repo_url}} machineLearning/machineLearning; scram b -j2;\
-             cd machineLearning/machineLearning; sudo yum -y install pylint; \
-             sudo touch /home/cmsusr/results/scripts_lint.txt; sudo touch /home/cmsusr/results/python_lint.txt;\
-             sudo pylint python/*.py >> /home/cmsusr/results/python_lint.txt ;\
-             sudo pylint scripts/*.py >> /home/cmsusr/results/scripts_lint.txt'
-      - name: Save python/ folder pylint artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: python-pylint
-          path: $PWD/python_lint.txt
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run docker Image
+  #       env:
+  #         build_image: clelange/cc7-cmssw-cvmfs:latest
+  #         docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" -v $PWD:/home/cmsusr/results --device /dev/fuse -i
+  #       run: |
+  #           sudo docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
+  #           -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
+  #            scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src; "eval `scramv1 runtime -sh`" ;\
+  #            git clone ${{ env.repo_url}} machineLearning/machineLearning; scram b -j2;\
+  #            cd machineLearning/machineLearning; sudo python -m pip -r install requirements.txt ; sudo yum -y install pylint; \
+  #            sudo pylint python/*.py ; sudo pylint scripts/*.py'
+  pycodestyle:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: ls
+          run: ls
+        - name: PWD
+          run: pwd
+
+      # - name: Save python/ folder pylint artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: python-pylint
+      #     path: $PWD/python_lint.txt
 
         # Can't use the aliases like cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
