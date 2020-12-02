@@ -20,7 +20,7 @@ jobs:
              scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src ; "eval `scramv1 runtime -sh`" ; \
              echo ${{ env.cmssw_ver }}/src/machineLearning/machineLearning; git clone ${{ env.repo_url}} machineLearning/machineLearning;\
              cd machineLearning/machineLearning; sudo python -m pip install pycodestyle; \
-             pycodestyle . &> ~/results/output.txt '
+             sudo pycodestyle . &> ~/results/output.txt '
         # Can't use the alias cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
 
 # /commit/${{ github.sha }}
