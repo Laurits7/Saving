@@ -20,36 +20,6 @@ jobs:
              scramv1 project CMSSW ${{ env.cmssw_ver }}; cd ${{ env.cmssw_ver }}/src; "eval `scramv1 runtime -sh`" ;\
              git clone ${{ env.repo_url}} machineLearning/machineLearning; scram b -j2;\
              cd machineLearning/machineLearning; sudo yum install pylint; \
-             pylint python/* &> /home/cmsusr/python_lint.txt ;\
-             pylint scripts/* &> /home/cmsusr/scripts_lint.txt'
-        # Can't use the alias cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
-
-# /commit/${{ github.sha }}
-
-      #   run: |
-      #     docker run \
-      #     --cap-add SYS_ADMIN \
-      #     --cap-add=MKNOD \
-      #     --security-opt apparmor=unconfined \
-      #     -e CVMFS_MOUNTS="cms.cern.ch" \
-      #     --device /dev/fuse \
-      #     -i clelange/cc7-cmssw-cvmfs:latest \
-      #     /bin/bash
-      # - name: Take a look around
-      #   run: pwd && ls
-      # - name: source
-      #   run: ls /cvmfs
-
-
-    # steps:
-    # - uses: actions/checkout@v2
-    # - name: Pull the Docker Image
-    #   run: docker pull clelange/cc7-cmssw-cvmfs:latest
-    # - name: Run Docker Image
-
-    # container: clelange/cc7-cmssw-cvmfs:latest
-    # steps:
-    #   - name: Test
-    #     run: source /cvmfs/cms.cern.ch/cmsset_default.sh
-
-
+             pylint --exit-zero python/* &> /home/cmsusr/python_lint.txt ;\
+             pylint --exit-zero scripts/* &> /home/cmsusr/scripts_lint.txt'
+        # Can't use the aliases like cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
