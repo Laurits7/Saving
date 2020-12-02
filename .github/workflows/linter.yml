@@ -24,7 +24,7 @@ jobs:
              pylint --exit-zero python/* &> /home/cmsusr/python_lint.txt ;\
              pylint --exit-zero scripts/* &> /home/cmsusr/scripts_lint.txt'
       - name: Save python/ folder pylint artefacts
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: python-pylint
           path: ${{ env.location }}/python_lint.txt
