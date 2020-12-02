@@ -5,6 +5,7 @@ on: [push]
 env:
   cmssw_ver: CMSSW_10_2_10
   repo_url: https://github.com/HEP-KBFI/ml-training
+  location: /home/runner/work/Saving/Saving
 
 jobs:
   build:
@@ -13,7 +14,7 @@ jobs:
       - name: Run docker Image
         env:
           build_image: clelange/cc7-cmssw-cvmfs:latest
-          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" -v /home/runner/work/Saving/Saving:/home/cmsusr/results --device /dev/fuse -i
+          docker_options: --cap-add SYS_ADMIN --cap-add=MKNOD --security-opt apparmor=unconfined -e CVMFS_MOUNTS="cms.cern.ch" -v ${{ env.location }}:/home/cmsusr/results --device /dev/fuse -i
         run: |
             docker run ${{ env.docker_options }} ${{ env.build_image }} /bin/bash \
             -c 'source /cvmfs/cms.cern.ch/cmsset_default.sh && echo Succeeded to source || exit_on_error "Failed to source"!; \
@@ -22,4 +23,10 @@ jobs:
              cd machineLearning/machineLearning; sudo yum -y install pylint; \
              pylint --exit-zero python/* &> /home/cmsusr/python_lint.txt ;\
              pylint --exit-zero scripts/* &> /home/cmsusr/scripts_lint.txt'
+      - name: Save python/ folder pylint artefacts
+      - uses: actions/upload-artifact@v2
+        with:
+          name: python-pylint
+          path: ${{ env.location }}/python_lint.txt
+
         # Can't use the aliases like cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
