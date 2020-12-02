@@ -15,7 +15,7 @@ jobs:
       - name: Python Pylin GitHub Action
         uses: fylein/python-pylint-github-action@v1
         with:
-          args: pylint --exit-zero --disable F0401 *.py &> lint1.txt
+          args: pylint --exit-zero --disable F0401 *.py
       - name: Save python/ folder pylint artifacts
         uses: actions/upload-artifact@v2
         with:
