@@ -26,10 +26,12 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
-        - name: ls
-          run: ls
-        - name: PWD
-          run: pwd
+        - name: Install pip
+          run: sudo apt install python-pip
+        - name: install pycodestyle
+          run: pip install pycodestyle
+        - name: run pycodestyle
+          run: pycodestyle .
 
       # - name: Save python/ folder pylint artifacts
       #   uses: actions/upload-artifact@v2
