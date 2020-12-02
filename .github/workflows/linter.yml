@@ -15,7 +15,7 @@ jobs:
       - name: Python Pylin GitHub Action
         uses: fylein/python-pylint-github-action@v1
         with:
-          args: pip3 install -r requirements.txt && pylint --exit-zero --disable F0401 *.py
+          args: pylint --exit-zero --disable F0401 *.py &> lint1.txt
       - name: Install python-pylint
         run: sudo apt install pylint
       - name: run pylint
@@ -27,6 +27,11 @@ jobs:
         with:
           name: python-pylint
           path: lint.txt
+      - name: Save python/ folder pylint artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-pylint
+          path: lint1.txt
       # - name: Run docker Image
       #   env:
       #     build_image: clelange/cc7-cmssw-cvmfs:latest
