@@ -31,12 +31,13 @@ jobs:
         - name: install pycodestyle
           run: sudo python -m pip install pycodestyle
         - name: run pycodestyle
-          run: pycodestyle .
+          run: pycodestyle *.py &> pycodestyle.txt
+        - name: Save python/ folder pylint artifacts
+          uses: actions/upload-artifact@v2
+          with:
+            name: python-pylint
+            path: $PWD/pycodestyle.txt
+          
 
-      # - name: Save python/ folder pylint artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: python-pylint
-      #     path: $PWD/python_lint.txt
 
         # Can't use the aliases like cmsrel, would need to echo it to .bashrc. Though this is the only place we need that alias.
